@@ -53,7 +53,7 @@ if [ ! -d "$SNOTES_DB" ]; then
     cd "${SNOTES_DB}"
     # changed:note assumes a predecessor for each non-empty commit
     git commit -q --allow-empty -m "root commit"
-    cat > "introduction to snotes" <<EOF
+    cat > "introduction to snotes" <<'EOF'
 Welcome to snotes 0.9
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -61,7 +61,7 @@ You're reading the first note in your newly created notes system.
 If you don't like it, just remove all content from the note and
 save. snotes automatically removes empty notes.
 
-As you've already found out, running \`snotes\` allows you to type
+As you've already found out, running `snotes` allows you to type
 or select the name of a note using dmenu. It then opens the note
 and you can write/edit/rewrite it to your heart's content.
 When you're done, save the note, close the editor and go on working.
@@ -83,15 +83,15 @@ the individual notes.
 You might have noticed snotes' git dependency. All your notes
 and edits are stored in a git repository. This allows you to keep
 track of your changes easily. For example, if you add " changed" or " c"
-after the name of a note in \`snotes\` you want to look at, snotes will present you
+after the name of a note in `snotes` you want to look at, snotes will present you
 with a diff of recent changes you applied to that specific note.
 Adding " blame" or " b" after the name of a note will on the other hand
-provide you with a detailed \`git blame\` of that note. Technically, the git
+provide you with a detailed `git blame` of that note. Technically, the git
 repository also makes it quite easy to synchronize your notes from different
 platforms.
 
 You can also use the command line interface of snotes directly, if you
-prefer this to dmenu. Simply invoke \`snotes-open\` with some parameter.
+prefer this to dmenu. Simply invoke `snotes-open` with some parameter.
 Possible parameters are "note:foo", which opens/creates the note foo,
 "changed:foo", which presents you with recent changes of foo,
 "blame:foo", which gives you a full blame of the note, and "commit:hash"
