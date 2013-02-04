@@ -117,7 +117,7 @@ case "$snotes_file_flags" in
 created)
     if [ -s "$snotes_file" ]; then
         git add "$snotes_file"
-        git commit -m "created note '$snotes_file'"
+        git commit -q -m "created note '$snotes_file'"
     else
         rm -f "$snotes_file"
     fi
@@ -126,11 +126,13 @@ temp)
     rm -f "$snotes_file"
     ;;
 deleted)
-    git rm -f "$snotes_file"
-    git commit -m "removed note '$snotes_file'"
+    git rm -q -f "$snotes_file"
+    git commit -q -m "removed note '$snotes_file'"
     ;;
 *)
-    git add "$snotes_file"
-    git commit -m "changed note '$snotes_file'"
+    if ! git diff --quiet "$snotes_file"; then
+        git add "$snotes_file"
+        git commit -q -m "changed note '$snotes_file'"
+    fi
     ;;
 esac

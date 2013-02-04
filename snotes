@@ -52,7 +52,7 @@ if [ ! -d "$SNOTES_DB" ]; then
     git init -q "$SNOTES_DB" || die "cannot create '$SNOTES_DB'"
     cd "${SNOTES_DB}"
     # changed:note assumes a predecessor for each non-empty commit
-    git commit --allow-empty -m "root commit"
+    git commit -q --allow-empty -m "root commit"
     cat > "introduction to snotes" <<EOF
 Welcome to snotes 0.9
 ~~~~~~~~~~~~~~~~~~~~~
