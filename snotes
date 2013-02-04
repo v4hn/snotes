@@ -99,7 +99,7 @@ which opens one specific commit (with the index "hash") of the note database.
 This last one is especially useful with the first word of the "blame:foo"
 output and with "note:foo" you can easily refer to notes from within other notes.
 
-This is it. If you wish to change some of the defaults of snotes,
+This is it. If you wish to change some of the defaults of snotes (e.g. the editor),
 you can edit these in ~/.snotes/config . If you wish to add features: go ahead,
 it's just a bit of shell script.
 
