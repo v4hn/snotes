@@ -27,7 +27,8 @@ if [ ! -d "$HOME/.snotes" ]; then
     info "creating config folder ~/.snotes"
     mkdir $HOME/.snotes || die "Could not create $HOME/.snotes"
     cat > $HOME/.snotes/config <<EOF
-SNOTES_EDITOR="gvim -f"
+SNOTES_EDITOR="xterm -e vi"
+
 SNOTES_DB="$HOME/.snotes/notes"
 
 # clean trailing whitespace from file automatically
