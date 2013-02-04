@@ -18,11 +18,11 @@ newtemp(){
     echo $tmp
 }
 
-[ -n "`which git 2>/dev/null`" ] || die "git not in PATH"
+type git >/dev/null 2>&1 || die "git not in PATH"
 
 . "$HOME/.snotes/config" || die "config ~/.snotes/config messed up"
 
-if [ "${SNOTES_CLEANUP}" = "yes" -a -z "`which perl 2>/dev/null`" ]; then
+if [ "${SNOTES_CLEANUP}" = "yes" ] && ! type perl >/dev/null 2>&1; then
     info "cleanup mode requires perl"
     SNOTES_CLEANUP="no"
 fi

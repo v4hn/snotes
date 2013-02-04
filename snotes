@@ -41,10 +41,10 @@ fi
 . "$HOME/.snotes/config" ||
     die "config ~/.snotes/config messed up"
 
-[ -n "`which dmenu 2>/dev/null`" ] ||
-    die "dmenu not in PATH"
+type dmenu >/dev/null 2>&1 ||
+    die "dmenu not available"
 
-[ -n "`which git 2>/dev/null`" ] ||
+type git >/dev/null 2>&1 ||
     die "git not in PATH"
 
 if [ ! -d "$SNOTES_DB" ]; then
