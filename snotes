@@ -27,7 +27,8 @@ if [ ! -d "$HOME/.snotes" ]; then
     info "creating config folder ~/.snotes"
     mkdir $HOME/.snotes || die "Could not create $HOME/.snotes"
     cat > $HOME/.snotes/config <<'EOF'
-SNOTES_EDITOR=${VISUAL:-xterm -e vi}
+SNOTES_EDITOR="${EDITOR:+xterm -e $EDITOR}"
+SNOTES_EDITOR="${SNOTES_EDITOR:-xterm -e vi}"
 
 SNOTES_DB="$HOME/.snotes/notes"
 
