@@ -106,7 +106,7 @@ it's just a bit of shell script.
 On a different note, it makes sense to add key bindings for the different commands.
 This is what I use with dwm:
 
-{ MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD("snotes \"\`sselp\`\"")},
+{ MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD("snotes-open \"\`sselp\`\"")},
 { MODKEY,                       XK_n,      spawn,          SHCMD("snotes")},
 { MODKEY,                       XK_m,      spawn,          SHCMD("snotes -s")},
 
