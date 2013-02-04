@@ -114,6 +114,8 @@ If you enjoy or improved snotes, I would be glad to hear from you!
 
 v4hn / me at v4hn dot de
 EOF
+    git add "introduction to snotes"
+    git commit -q -m "created note 'introduction to snotes'"
 fi
 
 cd "$SNOTES_DB"
