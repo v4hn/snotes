@@ -1,0 +1,26 @@
+snotes - a simple notes system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+snotes is a flexible and easy to use notes system.
+
+
+Requirements
+------------
+In order to use snotes, you need a working
+git and dmenu in your PATH.
+
+If you intend to use the SNOTES_CLEANUP option
+to clean notes automatically, you also need perl around.
+If you think this dependency is unnecessary, rewrite it
+in sed / etc. and send it to me.
+
+Installation
+------------
+Just run `make install`. The default installation prefix
+is /usr/local. If you want to change that to /usr,
+just run `make install PREFIX=/usr` instead.
+
+Running snotes
+--------------
+Run snotes once to initialize its config and a notes
+database for you. This also creates a first note called
+'introduction to snotes'. Read it and prosper.
