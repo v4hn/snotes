@@ -20,7 +20,7 @@ newtemp(){
 
 [ -n "`which git 2>/dev/null`" ] || die "git not in PATH"
 
-source "$HOME/.snotes/config" || die "config ~/.snotes/config messed up"
+. "$HOME/.snotes/config" || die "config ~/.snotes/config messed up"
 
 if [ "${SNOTES_CLEANUP}" = "yes" -a -z "`which perl 2>/dev/null`" ]; then
     info "cleanup mode requires perl"

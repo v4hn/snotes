@@ -38,7 +38,7 @@ SNOTES_CHANGED_COMMITS=2
 EOF
 fi
 
-source "$HOME/.snotes/config" ||
+. "$HOME/.snotes/config" ||
     die "config ~/.snotes/config messed up"
 
 [ -n "`which dmenu 2>/dev/null`" ] ||
