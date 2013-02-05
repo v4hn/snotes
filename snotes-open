@@ -37,7 +37,7 @@ unset snotes_file_flags
 blame(){
     local tmp
     tmp="`newtemp`"
-    git blame --relative-date "$1" | sed 's/^\^\?/commit:/' > "$tmp"
+    git blame --relative-date -- "$1" | sed 's/^\^\?/commit:/' > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
     snotes_file_flags=temp
@@ -57,8 +57,8 @@ changed(){
     local diffcommit
     tmp="`newtemp`"
 
-    diffcommit="`git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} \"$1\" | tail -n1 | cut -d' ' -f1`"
-    git diff --color=never "${diffcommit}^" "$1" > "$tmp"
+    diffcommit="`git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} -- \"$1\" | tail -n1 | cut -d' ' -f1`"
+    git diff --color=never "${diffcommit}^" -- "$1" > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
     snotes_file_flags=temp
@@ -116,7 +116,7 @@ fi
 case "$snotes_file_flags" in
 created)
     if [ -s "$snotes_file" ]; then
-        git add "$snotes_file"
+        git add -- "$snotes_file"
         git commit -q -m "created note '$snotes_file'"
     else
         rm -f "$snotes_file"
@@ -126,12 +126,12 @@ temp)
     rm -f "$snotes_file"
     ;;
 deleted)
-    git rm -q -f "$snotes_file"
+    git rm -q -f -- "$snotes_file"
     git commit -q -m "removed note '$snotes_file'"
     ;;
 *)
-    if ! git diff --quiet "$snotes_file"; then
-        git add "$snotes_file"
+    if ! git diff --quiet -- "$snotes_file"; then
+        git add -- "$snotes_file"
         git commit -q -m "changed note '$snotes_file'"
     fi
     ;;
