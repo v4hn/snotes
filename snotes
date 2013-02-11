@@ -73,13 +73,13 @@ to one specific editor, which some people consider to be an OS.
 It's simply about 250 lines of shell code.
 
 So you can create, edit and remove notes already. What else do you
-need to know? You can invoke snotes with the '-s' flag. This way an
-empty dmenu pops up and you can enter any string/regular expression
-you like. snotes then looks through all your notes and presents you
-with all notes that match your query. If you're as forgetful as I am,
-you will quickly appreciate this. This mechanism also allows you to
-use something like tags with snotes by simply adding keywords to
-the individual notes.
+need to know? You can invoke snotes with the '-s/--search' flag.
+This way an empty dmenu pops up and you can enter any string/regular
+expression you like. snotes then looks through all your notes and
+presents you with all notes that match your query. If you're as
+forgetful as I am, you will quickly appreciate this. This mechanism
+also allows you to use something like tags with snotes by simply
+adding keywords to the individual notes.
 
 You might have noticed snotes' git dependency. All your notes
 and edits are stored in a git repository. This allows you to keep
