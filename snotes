@@ -1,5 +1,5 @@
 #!/bin/sh
-# snotes-0.9 by v4hn / 2009-2013
+# snotes-1.0 by v4hn / 2009-2013
 # See LICENSE file for copyright and license details.
 
 info(){
@@ -55,7 +55,7 @@ if [ ! -d "$SNOTES_DB" ]; then
     # changed:note assumes a predecessor for each non-empty commit
     git commit -q --allow-empty -m "root commit"
     cat > "introduction to snotes" <<'EOF'
-Welcome to snotes 0.9
+Welcome to snotes 1.0
 ~~~~~~~~~~~~~~~~~~~~~
 
 You're reading the first note in your newly created notes system.
