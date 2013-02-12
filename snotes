@@ -152,6 +152,15 @@ blame|b)
 changed|c)
     file="changed:${select%${SNOTES_OPTION_CHAR}*}"
     ;;
+remove|rm)
+    [ ! -e "${select% *}" ] && die "file '`pwd`/${select% *}' doesn't exists"
+    while [ "$rmselect" != "NO" -a "$rmselect" != "YES" ]; do
+        rmselect=`echo -e 'NO\nYES' | dmenu ${DMENU_ARGS} -i -p "Do you want to remove '${select% *}' note?"`
+        [ -z "$rmselect" ] && exit 0
+    done
+    [ "$rmselect" = "NO" ] && exit 0
+    file="remove:${select% *}"
+    ;;
 *)
     file="note:${select}"
 esac
