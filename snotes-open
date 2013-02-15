@@ -38,6 +38,10 @@ cd "${SNOTES_DB}"
 unset snotes_file
 unset snotes_file_flags
 
+cancreate(){
+    [ ! -e "$1" -o -f "$1" ] && (touch "$1" && rm -f "$1") > /dev/null 2>&1
+}
+
 blame(){
     local tmp
     tmp="`newtemp`"
