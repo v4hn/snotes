@@ -34,6 +34,10 @@ cd "${SNOTES_DB}"
 unset snotes_file
 unset snotes_file_flags
 
+cancreate(){
+    [ ! -e "$1" -o -f "$1" ] && (touch "$1" && rm -f "$1") > /dev/null 2>&1
+}
+
 blame(){
     local tmp
     tmp="`newtemp`"
@@ -88,7 +92,7 @@ case "${1%:*}" in
 note)
     snotes_file="${1##*:}"
     if [ ! -f "$snotes_file" ]; then
-        touch "$snotes_file" && snotes_file_flags=created || die "could not create file '`pwd`/$snotes_file'"
+        cancreate "$snotes_file" && snotes_file_flags=created || die "could not create file '`pwd`/$snotes_file'"
     fi
     ;;
 blame)
@@ -100,18 +104,24 @@ commit)
 changed)
     changed "${1##*:}"
     ;;
+remove)
+    snotes_file="${1##*:}"
+    snotes_file_flags=deleted
+    ;;
 *)
     die "unknown prefix '${1%:*}'"
     ;;
 esac
 
-${SNOTES_EDITOR} "$snotes_file"
+if [ "$snotes_file_flags" != "deleted" ]; then
+    ${SNOTES_EDITOR} "$snotes_file"
 
-if [ "${SNOTES_CLEANUP}" = "yes" -a "$snotes_file_flags" != "temp" ]; then
-    cleanup "$snotes_file"
+    if [ "${SNOTES_CLEANUP}" = "yes" -a "$snotes_file_flags" != "temp" -a -f "$snotes_file" ]; then
+        cleanup "$snotes_file"
+    fi
+
+    [ ! -s "$snotes_file" -a -z "$snotes_file_flags" ] && snotes_file_flags=deleted
 fi
-
-[ ! -s "$snotes_file" -a -z "$snotes_file_flags" ] && snotes_file_flags=deleted
 
 case "$snotes_file_flags" in
 created)
