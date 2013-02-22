@@ -88,6 +88,8 @@ do {
     rm "$tmp"
 }
 
+[ -z "${1##*:}" ] && die "command with an empty argument"
+
 case "${1%:*}" in
 note)
     snotes_file="${1##*:}"
