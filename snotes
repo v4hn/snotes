@@ -24,8 +24,12 @@ while [ -n "$1" ]; do
 done
 
 if [ ! -d "$HOME/.snotes" ]; then
-    info "creating config folder ~/.snotes"
+    info "creating folder ~/.snotes"
     mkdir $HOME/.snotes || die "Could not create $HOME/.snotes"
+fi
+
+if [ ! -f "$HOME/.snotes/config" ]; then
+    info "creating config file ~/.snotes/cofig"
     cat > $HOME/.snotes/config <<'EOF'
 SNOTES_EDITOR="xterm -e ${VISUAL:-${EDITOR:-vi}}"
 
