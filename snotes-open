@@ -112,7 +112,14 @@ esac
 ${SNOTES_EDITOR} "$snotes_file"
 
 if [ "${SNOTES_CLEANUP}" = "yes" -a "$snotes_file_flags" != "temp" -a -f "$snotes_file" ]; then
-    cleanup "$snotes_file"
+    do_cleanup=1
+    for x in "${SNOTES_DONTCLEAN[@]}"; do
+        if [[ "$snotes_file" = $x ]]; then
+            do_cleanup=0
+            break
+        fi
+    done
+    [ $do_cleanup -ne 0 ] && cleanup "$snotes_file"
 fi
 
 [ ! -s "$snotes_file" -a -z "$snotes_file_flags" ] && snotes_file_flags=deleted
