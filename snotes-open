@@ -98,12 +98,14 @@ note)
     fi
     ;;
 blame)
+    [ ! -f "${1##*:}" ] && die "'`pwd`/${1##*:}' does not exist"
     blame "${1##*:}"
     ;;
 commit)
     commit "${1##*:}"
     ;;
 changed)
+    [ ! -f "${1##*:}" ] && die "'`pwd`/${1##*:}' does not exist"
     changed "${1##*:}"
     ;;
 *)
