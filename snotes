@@ -32,8 +32,8 @@ if [ ! -f "$HOME/.snotes/config" ]; then
     info "creating config file ~/.snotes/cofig"
     cat > $HOME/.snotes/config <<'EOF'
 SNOTES_EDITOR="xterm -e ${VISUAL:-${EDITOR:-vi}}"
-
 SNOTES_DB="$HOME/.snotes/notes"
+#DMENU_ARGS="-p Open:"
 
 # clean trailing whitespace from file automatically
 SNOTES_CLEANUP="yes"
