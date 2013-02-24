@@ -123,7 +123,7 @@ cd "$SNOTES_DB"
 
 if [ "${SNOTES_SEARCH}" = "yes" ]; then
     regex=`echo | dmenu ${DMENU_ARGS}`
-    [ -n "$regex" ] || die "regex empty"
+    [ -n "$regex" ] || exit 0 # no regex means we don't need to search
     select="`(grep -sil $regex *; find . -path ./.git -prune -o -regex ".*$regex.*" -exec basename \{\} \; ) | sort -u | dmenu`"
 else
     select=`ls | dmenu ${DMENU_ARGS}`
