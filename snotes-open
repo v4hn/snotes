@@ -88,7 +88,7 @@ do {
     rm "$tmp"
 }
 
-[ -z "${1##*:}" ] && die "command with an empty argument"
+[ -n "${1##*:}" ] || die "command with an empty argument"
 
 case "${1%:*}" in
 note)
@@ -98,14 +98,14 @@ note)
     fi
     ;;
 blame)
-    [ ! -f "${1##*:}" ] && die "'`pwd`/${1##*:}' does not exist"
+    [ -f "${1##*:}" ] || die "'`pwd`/${1##*:}' does not exist"
     blame "${1##*:}"
     ;;
 commit)
     commit "${1##*:}"
     ;;
 changed)
-    [ ! -f "${1##*:}" ] && die "'`pwd`/${1##*:}' does not exist"
+    [ -f "${1##*:}" ] || die "'`pwd`/${1##*:}' does not exist"
     changed "${1##*:}"
     ;;
 *)
