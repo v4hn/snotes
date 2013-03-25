@@ -33,7 +33,8 @@ if [ ! -f "$HOME/.snotes/config" ]; then
     cat > $HOME/.snotes/config <<'EOF'
 SNOTES_EDITOR="xterm -e ${VISUAL:-${EDITOR:-vi}}"
 SNOTES_DB="$HOME/.snotes/notes"
-#DMENU_ARGS="-p Open:"
+
+#DMENU_ARGS="-p Open: -sb darkgreen"
 
 # clean trailing whitespace from file automatically
 SNOTES_CLEANUP="yes"
