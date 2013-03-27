@@ -39,6 +39,9 @@ SNOTES_DB="$HOME/.snotes/notes"
 # clean trailing whitespace from file automatically
 SNOTES_CLEANUP="yes"
 
+# files you don't want to be cleaned
+#SNOTES_DONTCLEAN_REGEXP='^.*\.gpg$\|^.*\.asc$'
+
 # how many commits should be shown for "changed:note"
 SNOTES_CHANGED_COMMITS=2
 EOF
