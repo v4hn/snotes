@@ -88,25 +88,26 @@ do {
     rm "$tmp"
 }
 
-[ -n "${1##*:}" ] || die "command with an empty argument"
+snotes_file="${1##*:}"
+snotes_file="${snotes_file//./_}"
+[ -n "$snotes_file" ] || die "command with an empty argument"
 
 case "${1%:*}" in
 note)
-    snotes_file="${1##*:}"
     if [ ! -f "$snotes_file" ]; then
         cancreate "$snotes_file" && snotes_file_flags=created || die "could not create file '$(pwd)/$snotes_file'"
     fi
     ;;
 blame)
-    [ -f "${1##*:}" ] || die "'$(pwd)/${1##*:}' does not exist"
-    blame "${1##*:}"
+    [ -f "$snotes_file" ] || die "'$(pwd)/$snotes_file' does not exist"
+    blame "$snotes_file"
     ;;
 commit)
-    commit "${1##*:}"
+    commit "$snotes_file"
     ;;
 changed)
-    [ -f "${1##*:}" ] || die "'$(pwd)/${1##*:}' does not exist"
-    changed "${1##*:}"
+    [ -f "$snotes_file" ] || die "'$(pwd)/$snotes_file' does not exist"
+    changed "$snotes_file"
     ;;
 *)
     die "unknown prefix '${1%:*}'"
