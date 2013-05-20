@@ -61,7 +61,7 @@ changed(){
     local diffcommit
     tmp="$(newtemp)"
 
-    diffcommit="$(git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} -- \"$1\" | tail -n1 | cut -d' ' -f1)"
+    diffcommit="$(git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} -- "$1" | tail -n1 | cut -d' ' -f1)"
     git diff --color=never "${diffcommit}^" -- "$1" > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
