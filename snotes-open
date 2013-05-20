@@ -13,7 +13,7 @@ die(){
 
 newtemp(){
     local tmp
-    tmp="`mktemp -t snotes.tmp.XXXXXX`"
+    tmp="$(mktemp -t snotes.tmp.XXXXXX)"
     [ -e "$tmp" ] || die "Could not create temporary file"
     echo "$tmp"
 }
@@ -40,7 +40,7 @@ unset snotes_file_flags
 
 blame(){
     local tmp
-    tmp="`newtemp`"
+    tmp="$(newtemp)"
     git blame --relative-date -- "$1" | sed 's/^\^\?/commit:/' > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
@@ -49,7 +49,7 @@ blame(){
 
 commit(){
     local tmp
-    tmp="`newtemp`"
+    tmp="$(newtemp)"
     git show --color=never "$1" > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
@@ -59,9 +59,9 @@ commit(){
 changed(){
     local tmp
     local diffcommit
-    tmp="`newtemp`"
+    tmp="$(newtemp)"
 
-    diffcommit="`git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} -- \"$1\" | tail -n1 | cut -d' ' -f1`"
+    diffcommit="$(git log --oneline --color=never --max-count=${SNOTES_CHANGED_COMMITS} -- \"$1\" | tail -n1 | cut -d' ' -f1)"
     git diff --color=never "${diffcommit}^" -- "$1" > "$tmp"
     chmod 0400 "$tmp"
     snotes_file="$tmp"
@@ -70,7 +70,7 @@ changed(){
 
 cleanup(){
     local tmp
-    tmp="`newtemp`"
+    tmp="$(newtemp)"
 
     # cleanup
     cat "$1" | perl -e '
@@ -94,18 +94,18 @@ case "${1%:*}" in
 note)
     snotes_file="${1##*:}"
     if [ ! -f "$snotes_file" ]; then
-        cancreate "$snotes_file" && snotes_file_flags=created || die "could not create file '`pwd`/$snotes_file'"
+        cancreate "$snotes_file" && snotes_file_flags=created || die "could not create file '$(pwd)/$snotes_file'"
     fi
     ;;
 blame)
-    [ -f "${1##*:}" ] || die "'`pwd`/${1##*:}' does not exist"
+    [ -f "${1##*:}" ] || die "'$(pwd)/${1##*:}' does not exist"
     blame "${1##*:}"
     ;;
 commit)
     commit "${1##*:}"
     ;;
 changed)
-    [ -f "${1##*:}" ] || die "'`pwd`/${1##*:}' does not exist"
+    [ -f "${1##*:}" ] || die "'$(pwd)/${1##*:}' does not exist"
     changed "${1##*:}"
     ;;
 *)
