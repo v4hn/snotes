@@ -43,6 +43,9 @@ SNOTES_CLEANUP="yes"
 #SNOTES_DONTCLEAN_REGEXP='^.*\.gpg$|^.*\.asc$'
 SNOTES_DONTCLEAN_REGEXP='^$'
 
+# which char should be used to prefix additional options ('changed', etc.)
+SNOTES_OPTION_CHAR='!'
+
 # how many commits should be shown for "changed:note"
 SNOTES_CHANGED_COMMITS=2
 EOF
@@ -92,10 +95,10 @@ adding keywords to the individual notes.
 
 You might have noticed snotes' git dependency. All your notes
 and edits are stored in a git repository. This allows you to keep
-track of your changes easily. For example, if you add "/changed" or "/c"
+track of your changes easily. For example, if you add "!changed" or "!c"
 after the name of a note in `snotes` you want to look at, snotes will present you
 with a diff of recent changes you applied to that specific note.
-Adding "/blame" or "/b" after the name of a note will on the other hand
+Adding "!blame" or "!b" after the name of a note will on the other hand
 provide you with a detailed `git blame` of that note. Technically, the git
 repository also makes it quite easy to synchronize your notes from different
 platforms.
@@ -142,12 +145,12 @@ if [ -z "$select" ]; then
     exit 0
 fi
 
-case "${select##*/}" in
+case "${select##*${SNOTES_OPTION_CHAR}}" in
 blame|b)
-    file="blame:${select%/*}"
+    file="blame:${select%${SNOTES_OPTION_CHAR}*}"
     ;;
 changed|c)
-    file="changed:${select%/*}"
+    file="changed:${select%${SNOTES_OPTION_CHAR}*}"
     ;;
 *)
     file="note:${select}"
