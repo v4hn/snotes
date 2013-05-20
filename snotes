@@ -25,12 +25,12 @@ done
 
 if [ ! -d "$HOME/.snotes" ]; then
     info "creating folder ~/.snotes"
-    mkdir $HOME/.snotes || die "Could not create $HOME/.snotes"
+    mkdir "$HOME/.snotes" || die "Could not create $HOME/.snotes"
 fi
 
 if [ ! -f "$HOME/.snotes/config" ]; then
     info "creating config file ~/.snotes/cofig"
-    cat > $HOME/.snotes/config <<'EOF'
+    cat > "$HOME/.snotes/config" <<'EOF'
 SNOTES_EDITOR="xterm -e ${VISUAL:-${EDITOR:-vi}}"
 SNOTES_DB="$HOME/.snotes/notes"
 

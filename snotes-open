@@ -15,7 +15,7 @@ newtemp(){
     local tmp
     tmp="`mktemp -t snotes.tmp.XXXXXX`"
     [ -e "$tmp" ] || die "Could not create temporary file"
-    echo $tmp
+    echo "$tmp"
 }
 
 cancreate(){
@@ -70,7 +70,7 @@ changed(){
 
 cleanup(){
     local tmp
-    tmp=`newtemp`
+    tmp="`newtemp`"
 
     # cleanup
     cat "$1" | perl -e '
