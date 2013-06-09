@@ -22,6 +22,18 @@ cancreate(){
     [ ! -e "$1" -o -f "$1" ] && (touch "$1" && rm -f "$1") > /dev/null 2>&1
 }
 
+abs_path() {
+    local path
+    cd "$(dirname "$1")" || return 1
+    if [ $(pwd) = "/" ]; then
+	path="/$(basename "$1")"
+    else
+	path="$(pwd)/$(basename "$1")"
+    fi
+    cd - > /dev/null
+    echo $path
+}
+
 type git >/dev/null 2>&1 || die "git not in PATH"
 
 . "$HOME/.snotes/config" || die "config ~/.snotes/config messed up"
@@ -89,7 +101,9 @@ do {
 }
 
 snotes_file="${1##*:}"
-snotes_file="${snotes_file//./_}"
+snotes_dir=$(dirname "$snotes_file")
+[ -d "$snotes_dir" ] || die "directory $snotes_dir does not exist"
+[ $(abs_path "$snotes_file" | grep -E -c "${SNOTES_DB}/.*") -eq 1 ] || die "you can not have a note outside the '${SNOTES_DB}' directory"
 [ -n "$snotes_file" ] || die "command with an empty argument"
 
 case "${1%:*}" in
