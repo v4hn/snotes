@@ -22,6 +22,15 @@ cancreate(){
     [ ! -e "$1" -o -f "$1" ] && (touch "$1" && rm -f "$1") > /dev/null 2>&1
 }
 
+validnote(){
+    echo $1 | grep -q -E -v \
+        -e "^/" \
+        -e "(^|/)\.\./" \
+        -e "(^|/)\./" \
+        -e "^~[^/]*/" \
+        -e "^\.git"
+}
+
 type git >/dev/null 2>&1 || die "git not in PATH"
 
 . "$HOME/.snotes/config" || die "config ~/.snotes/config messed up"
@@ -89,8 +98,10 @@ do {
 }
 
 snotes_file="${1##*:}"
-snotes_file="${snotes_file//./_}"
+
 [ -n "$snotes_file" ] || die "command with an empty argument"
+validnote "$snotes_file" || die "note name is invalid. please don't try anything fancy"
+
 
 case "${1%:*}" in
 note)
