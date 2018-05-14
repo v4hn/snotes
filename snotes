@@ -43,6 +43,9 @@ SNOTES_CLEANUP="yes"
 #SNOTES_DONTCLEAN_REGEXP='^.*\.gpg$|^.*\.asc$'
 SNOTES_DONTCLEAN_REGEXP='^$'
 
+# files you don't want to see in listings and search
+SNOTES_DONTLIST_REGEXP='^(\.gitignore|.*\.swp)$'
+
 # which char should be used to prefix additional options ('changed', etc.)
 SNOTES_OPTION_CHAR='!'
 
@@ -136,9 +139,9 @@ cd "$SNOTES_DB"
 if [ "${SNOTES_SEARCH}" = "yes" ]; then
     regex="$(echo | dmenu ${DMENU_ARGS})"
     [ -n "$regex" ] || exit 0 # no regex means we don't need to search
-    select="$( (grep -risl $regex *; find . \( -path ./.git -prune -o -regex ".*$regex.*" \) -a -type f | sed -e 's:^\./::' ) | sort -u | dmenu ${DMENU_ARGS})"
+    select="$( (grep -risl $regex *; find . \( -path ./.git -prune -o -regex ".*$regex.*" \) -a -type f | sed -e 's:^\./::') | grep -E -v "$SNOTES_DONTLIST_REGEXP" | sort -u | dmenu ${DMENU_ARGS})"
 else
-    select="$(find . \( -path ./.git -prune -o -true \) -a -type f | sed -e 's:^\./::' | sort | dmenu ${DMENU_ARGS})"
+    select="$(find . \( -path ./.git -prune -o -true \) -a -type f | sed -e 's:^\./::' | grep -E -v "$SNOTES_DONTLIST_REGEXP" | sort | dmenu ${DMENU_ARGS})"
 fi
 
 if [ -z "$select" ]; then
