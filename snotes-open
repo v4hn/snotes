@@ -120,19 +120,25 @@ changed)
     [ -f "$snotes_file" ] || die "'$(pwd)/$snotes_file' does not exist"
     changed "$snotes_file"
     ;;
+remove)
+    snotes_file="${1##*:}"
+    snotes_file_flags=deleted
+    ;;
 *)
     die "unknown prefix '${1%:*}'"
     ;;
 esac
 
-${SNOTES_EDITOR} "$snotes_file"
+if [ "$snotes_file_flags" != "deleted" ]; then
+    ${SNOTES_EDITOR} "$snotes_file"
 
-if [ "${SNOTES_CLEANUP}" = "yes" -a "$snotes_file_flags" != "temp" -a -f "$snotes_file" \
-    -a "$(echo "$snotes_file" | grep -E -c "$SNOTES_DONTCLEAN_REGEXP")" -eq 0 ]; then
-    cleanup "$snotes_file"
+    if [ "${SNOTES_CLEANUP}" = "yes" -a "$snotes_file_flags" != "temp" -a -f "$snotes_file" \
+        -a "$(echo "$snotes_file" | grep -E -c "$SNOTES_DONTCLEAN_REGEXP")" -eq 0 ]; then
+        cleanup "$snotes_file"
+    fi
+
+    [ ! -s "$snotes_file" -a -z "$snotes_file_flags" ] && snotes_file_flags=deleted
 fi
-
-[ ! -s "$snotes_file" -a -z "$snotes_file_flags" ] && snotes_file_flags=deleted
 
 case "$snotes_file_flags" in
 created)
