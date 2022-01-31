@@ -1,5 +1,5 @@
 #!/bin/sh
-# snotes-1.0 by v4hn / 2009-2013
+# snotes-1.1 by v4hn / 2009-2022
 # See LICENSE file for copyright and license details.
 
 info(){
@@ -70,8 +70,8 @@ if [ ! -d "$SNOTES_DB" ]; then
     # changed:note assumes a predecessor for each non-empty commit
     git commit -q --allow-empty -m "root commit"
     cat > "introduction to snotes" <<'EOF'
-Welcome to snotes 1.0
-~~~~~~~~~~~~~~~~~~~~~
+Welcome to snotes
+~~~~~~~~~~~~~~~~~
 
 You're reading the first note in your newly created notes system.
 If you don't like it, just remove all content from the note and
